@@ -5,7 +5,7 @@ let i = 0;
 let gallery = document.querySelector(".gallery");
 
 // Remplacement photos //
-function createFigure() {
+function createFigure(photos) {
   for (let i = 0; i < photos.length; i++) {
     const figureAdd = document.createElement("figure");
     gallery.appendChild(figureAdd);
@@ -21,7 +21,7 @@ function createFigure() {
     figureAdd.appendChild(nomElement);
   }
 }
-createFigure();
+createFigure(photos);
 
 // Création bouton tri //
 const filtreDiv = document.querySelector("#portfolio h2");
@@ -62,6 +62,8 @@ boutonTrier.addEventListener("click", function () {
     return a.id - a.id;
   });
   console.log(photosOrdonnees);
+  document.querySelector(".gallery").innerHTML = "";
+  createFigure(photosOrdonnees);
 });
 
 const filtrerObjets = document.querySelector(".boutonObjets");
@@ -71,6 +73,8 @@ filtrerObjets.addEventListener("click", function () {
     return item.category.name === "Objets";
   });
   console.log(objetsFiltrees);
+  document.querySelector(".gallery").innerHTML = "";
+  createFigure(objetsFiltrees);
 });
 
 const filtrerAppart = document.querySelector(".boutonAppartements");
@@ -80,6 +84,8 @@ filtrerAppart.addEventListener("click", function () {
     return item.category.name === "Appartements";
   });
   console.log(appartFiltrees);
+  document.querySelector(".gallery").innerHTML = "";
+  createFigure(appartFiltrees);
 });
 
 const filtrerRestau = document.querySelector(".boutonHotelRestaurant");
@@ -89,4 +95,8 @@ filtrerRestau.addEventListener("click", function () {
     return item.category.name === "Hotels & restaurants";
   });
   console.log(restauFiltrees);
+  document.querySelector(".gallery").innerHTML = "";
+  createFigure(restauFiltrees);
 });
+
+// MàJ contenu //
