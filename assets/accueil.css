@@ -1,0 +1,15 @@
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 2rem;
+}
+.categories .category-item {
+  border-radius: 3.75rem;
+  border: 1px solid #1d6154;
+  padding: 7px 15px;
+}
+/* .category-item:active {
+  background-color: #1d6154;
+  color: #fff;
+} */

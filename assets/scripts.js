@@ -1,102 +1,81 @@
-const reponse = await fetch("http://localhost:5678/api/works/");
-const photos = await reponse.json();
+async function getWorks() {
+  const reponse = await fetch("http://localhost:5678/api/works/");
+  const photos = await reponse.json();
+  return photos;
+}
+async function getCategory() {
+  const reponse = await fetch("http://localhost:5678/api/categories/");
+  const category = await reponse.json();
+  return category;
+}
 
 let i = 0;
-let gallery = document.querySelector(".gallery");
 
 // Remplacement photos //
-function createFigure(photos) {
-  for (let i = 0; i < photos.length; i++) {
-    const figureAdd = document.createElement("figure");
-    gallery.appendChild(figureAdd);
+async function createFigure(works = null) {
+  if (works === null) {
+    works = await getWorks();
+  }
 
+  let gallery = document.querySelector(".gallery");
+
+  for (let work of works) {
+    const figureAdd = document.createElement("figure");
     const imageElement = document.createElement("img");
     const nomElement = document.createElement("figcaption");
 
-    imageElement.src = photos[i].imageUrl;
-    imageElement.alt = photos[i].title;
-    nomElement.innerText = photos[i].title;
+    imageElement.src = work.imageUrl;
+    imageElement.alt = work.title;
+    nomElement.innerText = work.title;
 
+    gallery.appendChild(figureAdd);
     figureAdd.appendChild(imageElement);
     figureAdd.appendChild(nomElement);
   }
 }
-createFigure(photos);
 
-// Création bouton tri //
-const filtreDiv = document.querySelector("#portfolio h2");
-const div = document.createElement("div");
-filtreDiv.appendChild(div);
-const filtre = document.querySelector("#portfolio h2 div");
+// Création catégorie et tri //
+async function createCategory() {
+  const categoriesContainer = document.querySelector(".categories");
+  const categories = await getCategory();
+  categories.unshift({ id: -1, name: "Tous" });
 
-const boutonTous = document.createElement("input");
-boutonTous.type = "submit";
-boutonTous.value = "Tous";
-filtre.appendChild(boutonTous);
-boutonTous.classList.add("boutonTous");
+  for (let category of categories) {
+    const divElement = document.createElement("div");
+    divElement.innerText = category.name;
+    divElement.classList.add("category-item");
+    divElement.id = category.id;
+    categoriesContainer.appendChild(divElement);
 
-const boutonObjets = document.createElement("input");
-boutonObjets.type = "submit";
-boutonObjets.value = "Objets";
-filtre.appendChild(boutonObjets);
-boutonObjets.classList.add("boutonObjets");
+    if (category.id === -1) {
+      divElement.style.backgroundColor = "#1D6154";
+      divElement.style.color = "#FFF";
+    }
 
-const boutonAppartements = document.createElement("input");
-boutonAppartements.type = "submit";
-boutonAppartements.value = "Appartements";
-filtre.appendChild(boutonAppartements);
-boutonAppartements.classList.add("boutonAppartements");
+    divElement.addEventListener("click", async function (event) {
+      const id = event.target.id;
 
-const boutonHotelRestaurant = document.createElement("input");
-boutonHotelRestaurant.type = "submit";
-boutonHotelRestaurant.value = "Hôtels & restaurants";
-filtre.appendChild(boutonHotelRestaurant);
-boutonHotelRestaurant.classList.add("boutonHotelRestaurant");
+      const categoryItems = document.querySelectorAll(".category-item");
+      categoryItems.forEach((item) => {
+        item.style.backgroundColor = "#FFF";
+        item.style.color = "#1D6154";
+      });
+      event.target.style.backgroundColor = "#1D6154";
+      event.target.style.color = "#FFF";
 
-// Tri par catégorie //
+      document.querySelector(".gallery").innerHTML = "";
 
-const boutonTrier = document.querySelector(".boutonTous");
-boutonTrier.addEventListener("click", function () {
-  const photosOrdonnees = Array.from(photos);
-  photosOrdonnees.sort(function (a, b) {
-    return a.id - a.id;
-  });
-  console.log(photosOrdonnees);
-  document.querySelector(".gallery").innerHTML = "";
-  createFigure(photosOrdonnees);
-});
+      if (id === "-1") {
+        const works = await getWorks();
+        createFigure(works);
+      } else {
+        const works = await getWorks();
+        const filteredWorks = works.filter((work) => work.category.id == id);
+        createFigure(filteredWorks);
+      }
+    });
+  }
+}
 
-const filtrerObjets = document.querySelector(".boutonObjets");
-
-filtrerObjets.addEventListener("click", function () {
-  const objetsFiltrees = photos.filter(function (item) {
-    return item.category.name === "Objets";
-  });
-  console.log(objetsFiltrees);
-  document.querySelector(".gallery").innerHTML = "";
-  createFigure(objetsFiltrees);
-});
-
-const filtrerAppart = document.querySelector(".boutonAppartements");
-
-filtrerAppart.addEventListener("click", function () {
-  const appartFiltrees = photos.filter(function (item) {
-    return item.category.name === "Appartements";
-  });
-  console.log(appartFiltrees);
-  document.querySelector(".gallery").innerHTML = "";
-  createFigure(appartFiltrees);
-});
-
-const filtrerRestau = document.querySelector(".boutonHotelRestaurant");
-
-filtrerRestau.addEventListener("click", function () {
-  const restauFiltrees = photos.filter(function (item) {
-    return item.category.name === "Hotels & restaurants";
-  });
-  console.log(restauFiltrees);
-  document.querySelector(".gallery").innerHTML = "";
-  createFigure(restauFiltrees);
-});
-
-// MàJ contenu //
+createFigure();
+createCategory();
