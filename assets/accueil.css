@@ -8,8 +8,35 @@
   border-radius: 3.75rem;
   border: 1px solid #1d6154;
   padding: 7px 15px;
+  color: #1d6154;
 }
-/* .category-item:active {
+.hidden {
+  display: none;
+}
+
+.edition-bar {
+  width: 100%;
+  height: 3.6875rem;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.fa-pen-to-square {
+  margin: 0 0.5rem 0 2rem;
+}
+.edition-Projet {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.categories .selected {
   background-color: #1d6154;
   color: #fff;
-} */
+}

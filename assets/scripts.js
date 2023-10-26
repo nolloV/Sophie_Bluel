@@ -9,16 +9,15 @@ async function getCategory() {
   return category;
 }
 
-let i = 0;
-
 // Remplacement photos //
-async function createFigure(works = null) {
-  if (works === null) {
-    works = await getWorks();
+async function createFigure(id = -1) {
+  let works = await getWorks();
+  if (id != "-1") {
+    works = works.filter((work) => work.category.id == id);
   }
 
   let gallery = document.querySelector(".gallery");
-
+  gallery.innerHTML = "";
   for (let work of works) {
     const figureAdd = document.createElement("figure");
     const imageElement = document.createElement("img");
@@ -48,34 +47,49 @@ async function createCategory() {
     categoriesContainer.appendChild(divElement);
 
     if (category.id === -1) {
-      divElement.style.backgroundColor = "#1D6154";
-      divElement.style.color = "#FFF";
+      divElement.classList.add("selected");
     }
 
     divElement.addEventListener("click", async function (event) {
       const id = event.target.id;
 
-      const categoryItems = document.querySelectorAll(".category-item");
-      categoryItems.forEach((item) => {
-        item.style.backgroundColor = "#FFF";
-        item.style.color = "#1D6154";
-      });
-      event.target.style.backgroundColor = "#1D6154";
-      event.target.style.color = "#FFF";
+      const selectedItem = document.querySelector(".selected");
+      selectedItem.classList.remove("selected");
+      event.target.classList.add("selected");
 
-      document.querySelector(".gallery").innerHTML = "";
-
-      if (id === "-1") {
-        const works = await getWorks();
-        createFigure(works);
-      } else {
-        const works = await getWorks();
-        const filteredWorks = works.filter((work) => work.category.id == id);
-        createFigure(filteredWorks);
-      }
+      createFigure(id);
     });
   }
 }
 
-createFigure();
-createCategory();
+function hideElements() {
+  const adminElements = document.querySelectorAll(".admin-element");
+  const adminElementsToHide = document.querySelectorAll(".to-hide");
+
+  if (isConnected()) {
+    adminElements.forEach((element) => {
+      element.classList.remove("hidden");
+    });
+
+    adminElementsToHide.forEach((element) => {
+      element.classList.add("hidden");
+    });
+  }
+}
+function logout() {
+  const logoutReset = document.getElementById("logoutReset");
+  logoutReset.addEventListener("click", function () {
+    localStorage.removeItem("token");
+  });
+}
+
+function isConnected() {
+  return localStorage.getItem("token") != null;
+}
+
+(function main() {
+  createFigure();
+  createCategory();
+  hideElements();
+  logout();
+})();
