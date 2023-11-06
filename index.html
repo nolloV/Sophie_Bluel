@@ -73,9 +73,13 @@
       <section id="portfolio">
         <div class="edition-Projet">
           <h2>Mes Projets</h2>
-          <p class="hidden admin-element">
-            <i class="fa-solid fa-pen-to-square"></i>modifier
-          </p>
+          <a
+            href="#modal-main"
+            class="hidden admin-element js-modal"
+            id="modal-main-link"
+          >
+            <i class="fa-solid fa-pen-to-square js-modal-close"></i>modifier
+          </a>
         </div>
         <div class="categories to-hide"></div>
         <div class="gallery"></div>
@@ -93,6 +97,66 @@
           <input type="submit" value="Envoyer" />
         </form>
       </section>
+      <aside id="modal-main" class="modale js-modal modale-hidden">
+        <div class="js-modal-stop" id="modale" role="dialog">
+          <i class="fa-solid fa-xmark js-modal-close"></i>
+          <div class="modale-marge">
+            <h2>Galerie photo</h2>
+            <div class="modale-gallery"></div>
+            <div class="modale-add">
+              <div class="modale-lane"></div>
+              <form action="#" method="post">
+                <input
+                  class="modale-input"
+                  type="submit"
+                  value="Ajouter une photo"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <aside id="modal-main" class="modale js-modal hidden">
+        <div class="js-modal-stop" id="modale" role="dialog">
+          <div class="modal-add-icon">
+            <i class="fa-solid fa-arrow-left"></i>
+            <i class="fa-solid fa-xmark js-modal-close"></i>
+          </div>
+          <div class="modale-marge">
+            <h2>Ajout photo</h2>
+            <form class="modal-add-form">
+              <div class="modal-add-photo">
+                <i class="fa-regular fa-image"></i>
+                <label class="modal-add-file" for="myfile"
+                  >+ Ajouter photo</label
+                >
+                <input class="hidden" type="file" id="myfile" name="myfile" />
+                <p class="modal-add-text">jpg, png : 4mo max</p>
+              </div>
+              <div>
+                <label class="modal-add-titre" for="titre">Titre</label>
+                <input type="text" id="titre" name="titre" />
+              </div>
+              <div>
+                <label class="modal-add-titre" for="Categorie">Catégorie</label>
+                <select id="Categorie" name="Categorie">
+                  <option value="volvo">Volvo</option>
+                  <option value="saab">Saab</option>
+                  <option value="fiat">Fiat</option>
+                  <option value="audi">Audi</option>
+                </select>
+              </div>
+            </form>
+            <div class="modale-add">
+              <div class="modale-lane"></div>
+              <form action="#" method="post">
+                <input class="modale-input" type="submit" value="Valider" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </aside>
     </main>
     <footer>
       <nav>

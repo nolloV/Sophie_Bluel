@@ -227,16 +227,19 @@ li:hover {
   width: 100%;
 }
 #contact,
-#login {
+#login,
+#modale {
   width: 50%;
   margin: auto;
 }
 #contact > *,
-#login > * {
+#login > *,
+#modale > * {
   text-align: center;
 }
 #contact h2,
-#login h2 {
+#login h2,
+#modale h2 {
   margin-bottom: 20px;
 }
 #contact form,

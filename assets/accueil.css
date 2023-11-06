@@ -36,7 +36,167 @@
   align-items: baseline;
 }
 
+a {
+  text-decoration: none;
+  color: #000;
+}
+
 .categories .selected {
   background-color: #1d6154;
   color: #fff;
+}
+
+.modale-hidden {
+  display: none;
+}
+.modale {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s both;
+}
+.modale-hidden {
+  display: none;
+}
+#modale {
+  height: 43rem;
+  width: 39.375rem;
+  border-radius: 0.625rem;
+  padding: 1.5rem 2rem 1rem 2rem;
+  flex-direction: column;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+#modale i.fa-xmark,
+i.fa-arrow-left {
+  align-self: flex-end;
+  font-size: 1.625rem;
+}
+
+.modale-marge {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+#modale h2 {
+  color: black;
+  text-align: center;
+  font-family: Work Sans;
+  font-size: 1.625rem;
+  order: 1;
+  margin-top: 2rem;
+}
+.modale-gallery {
+  order: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+}
+.modale-gallery figure img {
+  width: 4.88269rem;
+  height: 6.505rem;
+}
+.modale-add {
+  order: 3;
+}
+
+#modale .modale-input {
+  display: flex;
+  justify-content: center;
+  border-radius: 3.75rem;
+  border: 1px solid #1d6154;
+  padding: 7px 15px;
+  width: 14.8125rem;
+  height: 2.25rem;
+}
+
+#modale .modale-lane {
+  display: flex;
+  justify-content: center;
+  background: #b3b3b3;
+  height: 0.0625rem;
+}
+.icon-modal {
+  background-color: black;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.relative-figure {
+  position: relative;
+}
+.modal-add-form {
+  order: 2;
+  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.modal-add-icon {
+  display: flex;
+  justify-content: space-between;
+}
+.modal-add-photo {
+  border-radius: 0.1875rem;
+  background: #e8f1f6;
+  width: 26.25rem;
+  height: 10.5625rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.modal-add-file {
+  width: 10.8125rem;
+  height: 2.25rem;
+  border-radius: 3.125rem;
+  background: #cbd6dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #306685;
+  font-weight: 600;
+}
+
+.fa-image {
+  font-size: 4rem;
+  color: #b9c5cc;
+}
+.modal-add-titre {
+  color: #3d3d3d;
+  font-family: Work Sans;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  display: flex;
+  justify-content: flex-start;
+}
+.modal-add-text {
+  color: #444;
+  font-size: 0.625rem;
+}
+#titre,
+#Categorie {
+  width: 26.25rem;
+  height: 3.1875rem;
+  background: #fff;
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+  margin-top: 0.7rem;
+  border: 0px solid;
 }

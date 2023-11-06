@@ -3,6 +3,7 @@ async function getWorks() {
   const photos = await reponse.json();
   return photos;
 }
+
 async function getCategory() {
   const reponse = await fetch("http://localhost:5678/api/categories/");
   const category = await reponse.json();
@@ -27,9 +28,9 @@ async function createFigure(id = -1) {
     imageElement.alt = work.title;
     nomElement.innerText = work.title;
 
-    gallery.appendChild(figureAdd);
     figureAdd.appendChild(imageElement);
     figureAdd.appendChild(nomElement);
+    gallery.appendChild(figureAdd);
   }
 }
 
@@ -92,4 +93,93 @@ function isConnected() {
   createCategory();
   hideElements();
   logout();
+  handleModal();
+  createFigureModal();
 })();
+
+// Création Modale //
+function openModal(e) {
+  e.preventDefault();
+  const target = document.getElementById("modal-main");
+  if (target.classList.contains("modale-hidden")) {
+    target.classList.remove("modale-hidden");
+  }
+}
+
+// Fonction click "modifier" pour ouvrir modale et fermeture modale //
+function handleModal() {
+  const linkModalMain = document.getElementById("modal-main-link");
+  linkModalMain.addEventListener("click", openModal);
+  const closeElements = document.querySelectorAll(".js-modal-close");
+  closeElements.forEach(function (value) {
+    value.addEventListener("click", closeModal);
+  });
+  const closeModalMain = document.getElementById("modal-main");
+  closeModalMain.addEventListener("click", function (e) {
+    if (e.target === closeModalMain) {
+      closeModal();
+    }
+  });
+}
+
+// Fonction fermeture modale //
+function closeModal(e) {
+  const modalMain = document.getElementById("modal-main");
+  modalMain.classList.add("modale-hidden");
+}
+
+// Création images modale et logo supprimer //
+async function createFigureModal() {
+  let works = await getWorks();
+
+  let gallery = document.querySelector(".modale-gallery");
+  gallery.innerHTML = "";
+
+  for (let work of works) {
+    const figureAdd = document.createElement("figure");
+    const imageElement = document.createElement("img");
+    const nomElement = document.createElement("figcaption");
+
+    imageElement.src = work.imageUrl;
+    imageElement.alt = work.title;
+    figureAdd.id = work.id;
+
+    const iconContainer = document.createElement("div");
+    iconContainer.classList.add("icon-modal");
+
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("fa-solid", "fa-trash-can");
+    iconElement.addEventListener("click", removeWork);
+
+    iconContainer.appendChild(iconElement);
+    nomElement.appendChild(iconContainer);
+
+    figureAdd.classList.add("relative-figure");
+
+    figureAdd.appendChild(imageElement);
+    figureAdd.appendChild(nomElement);
+    gallery.appendChild(figureAdd);
+  }
+}
+
+function removeWork(e) {
+  const parent = e.target.closest("figure");
+  console.log(parent);
+  const parentID = parent.getAttribute("id");
+  deleteWork(parentID);
+}
+
+async function deleteWork(id) {
+  const reponse = await fetch("http://localhost:5678/api/works/" + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  });
+  if (reponse.status == 204) {
+    await createFigureModal();
+    await createFigure();
+  }
+  const remove = await reponse.json();
+  return remove;
+}
