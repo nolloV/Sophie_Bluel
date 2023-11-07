@@ -105,8 +105,9 @@
             <div class="modale-gallery"></div>
             <div class="modale-add">
               <div class="modale-lane"></div>
-              <form action="#" method="post">
+              <form id="modal-input-Add">
                 <input
+                  id="addPhoto"
                   class="modale-input"
                   type="submit"
                   value="Ajouter une photo"
@@ -117,10 +118,10 @@
         </div>
       </aside>
 
-      <aside id="modal-main" class="modale js-modal hidden">
+      <aside id="modal-add" class="modale js-modal modale-hidden modal-add">
         <div class="js-modal-stop" id="modale" role="dialog">
           <div class="modal-add-icon">
-            <i class="fa-solid fa-arrow-left"></i>
+            <i id="arrow" class="fa-solid fa-arrow-left arrow-left"></i>
             <i class="fa-solid fa-xmark js-modal-close"></i>
           </div>
           <div class="modale-marge">
@@ -151,7 +152,11 @@
             <div class="modale-add">
               <div class="modale-lane"></div>
               <form action="#" method="post">
-                <input class="modale-input" type="submit" value="Valider" />
+                <input
+                  class="modale-input modal-add-input"
+                  type="submit"
+                  value="Valider"
+                />
               </form>
             </div>
           </div>

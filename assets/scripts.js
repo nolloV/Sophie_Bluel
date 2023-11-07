@@ -95,6 +95,8 @@ function isConnected() {
   logout();
   handleModal();
   createFigureModal();
+  clickAdd();
+  returnAdd();
 })();
 
 // Création Modale //
@@ -120,12 +122,20 @@ function handleModal() {
       closeModal();
     }
   });
+  const closeModalAdd = document.getElementById("modal-add");
+  closeModalAdd.addEventListener("click", function (e) {
+    if (e.target === closeModalAdd) {
+      closeModal();
+    }
+  });
 }
 
 // Fonction fermeture modale //
 function closeModal(e) {
   const modalMain = document.getElementById("modal-main");
+  const modalAdd = document.getElementById("modal-add");
   modalMain.classList.add("modale-hidden");
+  modalAdd.classList.add("modale-hidden");
 }
 
 // Création images modale et logo supprimer //
@@ -164,7 +174,6 @@ async function createFigureModal() {
 
 function removeWork(e) {
   const parent = e.target.closest("figure");
-  console.log(parent);
   const parentID = parent.getAttribute("id");
   deleteWork(parentID);
 }
@@ -183,3 +192,44 @@ async function deleteWork(id) {
   const remove = await reponse.json();
   return remove;
 }
+
+function clickAdd() {
+  const modalInputAdd = document.getElementById("modal-input-Add");
+  const modalMain = document.getElementById("modal-main");
+  const modalAdd = document.getElementById("modal-add");
+  modalInputAdd.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (modalAdd.classList.contains("modale-hidden")) {
+      modalAdd.classList.remove("modale-hidden");
+      modalMain.classList.add("modale-hidden");
+    }
+  });
+}
+
+function returnAdd() {
+  const modalArrow = document.getElementById("arrow");
+  const modalMain = document.getElementById("modal-main");
+  const modalAdd = document.getElementById("modal-add");
+  modalArrow.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (modalMain.classList.contains("modale-hidden")) {
+      modalAdd.classList.add("modale-hidden");
+      modalMain.classList.remove("modale-hidden");
+    }
+  });
+}
+
+// async function addWork(id) {
+//   const reponse = await fetch("http://localhost:5678/api/works/" + id, {
+//     method: "POST",
+//     headers: {
+//       Authorization: "Bearer " + localStorage.getItem("token"),
+//     },
+//   });
+//   if (reponse.status == 204) {
+//     await createFigureModal();
+//     await createFigure();
+//   }
+//   const remove = await reponse.json();
+//   return remove;
+// }
