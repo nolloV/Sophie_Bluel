@@ -70,6 +70,7 @@
           </p>
         </article>
       </section>
+
       <section id="portfolio">
         <div class="edition-Projet">
           <h2>Mes Projets</h2>
@@ -84,6 +85,7 @@
         <div class="categories to-hide"></div>
         <div class="gallery"></div>
       </section>
+
       <section id="contact">
         <h2>Contact</h2>
         <p>Vous avez un projet ? Discutons-en !</p>
@@ -97,6 +99,7 @@
           <input type="submit" value="Envoyer" />
         </form>
       </section>
+
       <aside id="modal-main" class="modale js-modal modale-hidden">
         <div class="js-modal-stop" id="modale" role="dialog">
           <i class="fa-solid fa-xmark js-modal-close"></i>
@@ -126,39 +129,36 @@
           </div>
           <div class="modale-marge">
             <h2>Ajout photo</h2>
-            <form class="modal-add-form">
+            <form
+              class="modal-add-form"
+              enctype="multipart/form-data"
+              method="post"
+              name="fileinfo"
+            >
               <div class="modal-add-photo">
-                <i class="fa-regular fa-image"></i>
-                <label class="modal-add-file" for="myfile"
-                  >+ Ajouter photo</label
-                >
-                <input class="hidden" type="file" id="myfile" name="myfile" />
-                <p class="modal-add-text">jpg, png : 4mo max</p>
+                <div class="element-to-hide">
+                  <i class="fa-regular fa-image"></i>
+                  <label class="modal-add-file" for="myfile"
+                    >+ Ajouter photo</label
+                  >
+                  <input class="hidden" type="file" id="myfile" name="image" />
+                  <p class="modal-add-text">jpg, png : 4mo max</p>
+                </div>
+                <div class="preview"></div>
               </div>
               <div>
                 <label class="modal-add-titre" for="titre">Titre</label>
-                <input type="text" id="titre" name="titre" />
+                <input type="text" id="titre" name="title" />
               </div>
               <div>
                 <label class="modal-add-titre" for="Categorie">Catégorie</label>
-                <select id="Categorie" name="Categorie">
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="fiat">Fiat</option>
-                  <option value="audi">Audi</option>
-                </select>
+                <select id="Options" name="category"></select>
+              </div>
+              <div class="modale-add">
+                <div class="modale-lane"></div>
+                <input class="modale-input" type="submit" value="Valider" />
               </div>
             </form>
-            <div class="modale-add">
-              <div class="modale-lane"></div>
-              <form action="#" method="post">
-                <input
-                  class="modale-input modal-add-input"
-                  type="submit"
-                  value="Valider"
-                />
-              </form>
-            </div>
           </div>
         </div>
       </aside>
