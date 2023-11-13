@@ -63,6 +63,7 @@ async function createCategory() {
   }
 }
 
+// Gestion token et élément caché et affiché //
 function hideElements() {
   const adminElements = document.querySelectorAll(".admin-element");
   const adminElementsToHide = document.querySelectorAll(".to-hide");
@@ -167,7 +168,7 @@ function removeWork(e) {
   deleteWork(parentID);
 }
 
-// Delete photo du serveur"
+// Delete photo du serveur //
 async function deleteWork(id) {
   const reponse = await fetch("http://localhost:5678/api/works/" + id, {
     method: "DELETE",
@@ -213,7 +214,7 @@ function returnAdd() {
 
 // Image preview //
 function imagePreview() {
-  const input = document.getElementById("myfile");
+  const input = document.getElementById("inputFile");
   const preview = document.querySelector(".preview");
   const parentDiv = document.querySelector(".element-to-hide");
 
@@ -245,9 +246,9 @@ async function createOptions() {
 
 // Vérification champs formulaire //
 function validateForm() {
-  const title = document.forms["fileinfo"]["title"].value;
-  const category = document.forms["fileinfo"]["category"].value;
-  const image = document.forms["fileinfo"]["image"].value;
+  const title = document.forms["addForm"]["title"].value;
+  const category = document.forms["addForm"]["category"].value;
+  const image = document.forms["addForm"]["image"].value;
 
   if (title === "") {
     alert("Le titre est manquant");
@@ -261,8 +262,10 @@ function validateForm() {
   }
   return true;
 }
+
+// Nettoyage formulaire //
 function cleanForm() {
-  document.fileinfo.reset();
+  document.addForm.reset();
   const imagePreview = document.querySelector(".preview");
   imagePreview.innerHTML = "";
   const hideElement = document.querySelector(".element-to-hide");
@@ -302,7 +305,6 @@ async function eventAdd() {
     await addPhoto();
   });
 }
-
 (function main() {
   createFigure();
   createCategory();

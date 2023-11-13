@@ -133,15 +133,20 @@
               class="modal-add-form"
               enctype="multipart/form-data"
               method="post"
-              name="fileinfo"
+              name="addForm"
             >
               <div class="modal-add-photo">
                 <div class="element-to-hide">
                   <i class="fa-regular fa-image"></i>
-                  <label class="modal-add-file" for="myfile"
+                  <label class="modal-add-file" for="inputFile"
                     >+ Ajouter photo</label
                   >
-                  <input class="hidden" type="file" id="myfile" name="image" />
+                  <input
+                    class="hidden"
+                    type="file"
+                    id="inputFile"
+                    name="image"
+                  />
                   <p class="modal-add-text">jpg, png : 4mo max</p>
                 </div>
                 <div class="preview"></div>

@@ -4,13 +4,6 @@ async function handleAuth() {
   formulaireLogin.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    // Fonction Message d'erreur mauvais identifiants //
-    function displayErrorMessage(message) {
-      const errorElement = document.getElementById("error");
-      errorElement.textContent = message;
-      errorElement.style.color = "red";
-    }
-
     // Récupération informations login et mot de passe //
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -34,7 +27,8 @@ async function handleAuth() {
         window.location.href = "../index.html";
       }
     } else {
-      displayErrorMessage("Erreur dans l’identifiant ou le mot de passe");
+      const messageError = document.getElementById("error");
+      messageError.classList.remove("hidden");
     }
   });
 }
